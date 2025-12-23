@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TipTap from "./TipTap";
+import { Undo, Redo, FileText } from "lucide-react";
 import "./App.css";
 
 function App() {
@@ -71,22 +72,45 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "2rem", maxWidth: 800, margin: "auto" }}>
-      <h1>Text Editor</h1>
+    <>
+      <div className="app-nav">
+        <h1 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <FileText size={24} />
+          Text Editor
+        </h1>
 
-      <TipTap editor={editor} />
+        <TipTap editor={editor} />
 
-      <div style={{ margin: "1rem 0" }}>
-        <button onClick={handleUndo} disabled={undoStack.length <= 1}>
-          Undo
-        </button>
-        <button onClick={handleRedo} disabled={redoStack.length === 0}>
-          Redo
-        </button>
+        <div
+          style={{
+            marginRight: "4rem",
+            display: "flex",
+            gap: "0.5rem",
+          }}
+        >
+          <button onClick={handleUndo} disabled={undoStack.length <= 1}>
+            <Undo size={16} />
+          </button>
+          <button onClick={handleRedo} disabled={redoStack.length === 0}>
+            <Redo size={16} />
+          </button>
+        </div>
       </div>
 
-      <EditorContent editor={editor} />
-    </div>
+      <div className="App">
+        <div
+          className="editor-container"
+          onClick={(e) => {
+            if (editor && e.target === e.currentTarget) {
+              editor.commands.focus();
+              editor.commands.setTextSelection(editor.state.doc.content.size);
+            }
+          }}
+        >
+          <EditorContent editor={editor} className="editor-body" />
+        </div>
+      </div>
+    </>
   );
 }
 
