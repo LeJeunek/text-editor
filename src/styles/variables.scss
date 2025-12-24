@@ -1,0 +1,21 @@
+// Variables
+$primary-bg: hsla(0, 0%, 50%, 0.625);
+$border-color: #ddd;
+$border-color-light: #ccc;
+$border-radius: 5px;
+$nav-height: 60px;
+$max-width: 1200px;
+
+// CSS Custom Properties for theme
+:root {
+  --gray-1: #f8f9fa;
+  --gray-2: #e9ecef;
+  --gray-3: #dee2e6;
+  --gray-4: #adb5bd;
+  --black: #000000;
+  --black-contrast: #ffffff;
+  --white: #ffffff;
+  --purple: #6c5ce7;
+  --purple-contrast: #5a4fcf;
+  --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

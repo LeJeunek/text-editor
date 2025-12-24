@@ -1,16 +1,53 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import TextAlign from "@tiptap/extension-text-align";
+import { TextStyle } from "@tiptap/extension-text-style";
+import Color from "@tiptap/extension-color";
+import Highlight from "@tiptap/extension-highlight";
+import Link from "@tiptap/extension-link";
+import Image from "@tiptap/extension-image";
+import Underline from "@tiptap/extension-underline";
+import ListItem from "@tiptap/extension-list-item";
+import BulletList from "@tiptap/extension-bullet-list";
+import OrderedList from "@tiptap/extension-ordered-list";
+import TaskList from "@tiptap/extension-task-list";
+import TaskItem from "@tiptap/extension-task-item";
+import CodeBlock from "@tiptap/extension-code-block";
+import Heading from "@tiptap/extension-heading";
 import TipTap from "./TipTap";
 import { Undo, Redo, FileText } from "lucide-react";
-import "./App.css";
 
 function App() {
   const [undoStack, setUndoStack] = useState<string[]>([]);
   const [redoStack, setRedoStack] = useState<string[]>([]);
 
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      TextStyle,
+      Color,
+      Highlight.configure({ multicolor: true }),
+      Link.configure({
+        openOnClick: false,
+      }),
+      Image,
+      Underline,
+      ListItem,
+      BulletList,
+      OrderedList,
+      TaskList,
+      TaskItem.configure({
+        nested: true,
+      }),
+      CodeBlock,
+      Heading.configure({
+        levels: [1, 2, 3, 4, 5, 6],
+      }),
+    ],
     content: "<p>Start typing...</p>",
     onUpdate({ editor }) {
       const json = JSON.stringify(editor.getJSON());
